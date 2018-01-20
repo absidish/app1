@@ -1,18 +1,30 @@
 {
   "name": "SubutaiAnsible",
   "description": "Environment configuration test blueprint",
+  "foobar": {
+    "description": "just a test",
+    "type": "enum",
+    "default": "CAT",
+    "validation": "BAT,CAT,RAT,COW,DOG"
+  },
   "containerType": {
     "description": "you can set TINY,SMALL,MEDIUM,LARGE,HUGE",
     "type": "enum",
     "default": "SMALL",
     "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-},
+  },
   "nodes": [
     {
       "name": "backup-server",
       "template": "ubuntu16",
       "peer_group": "HTTP-GROUP",
-      "size": "${containerType}"
+      "size": "${containerType}",
+    },
+      {
+      "name": "backup-server",
+      "template": "ubuntu16",
+      "peer_group": "HTTP-GROUP",
+      "size": "${foobar}",
     }
   ],
   "peerGroups": [
