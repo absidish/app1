@@ -22,7 +22,7 @@
     "arguments": [
       {
         "name" : "path",
-        "value" : "/tmp"
+        "value" : "/root"
       },
       {
         "name" : "path1",
