@@ -28,6 +28,11 @@
         "name" : "path1",
         "value" : "/root"
       }  
+      ,
+      {
+        "name" : "msg",
+        "value" : "My message"
+      }  
     ],
     "playbook": "https://github.com/platium/app1/archive/master.zip",
     "script": "main.yml",
