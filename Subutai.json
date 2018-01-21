@@ -19,6 +19,9 @@
   ],
   "sshKey": "root",
   "configuration": {
+    "environment": {
+      "path" : "/tmp"
+    },
     "playbook": "https://github.com/platium/app2/archive/master.zip",
     "script": "main.yml",
     "groups": [
