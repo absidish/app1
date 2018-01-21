@@ -21,11 +21,11 @@
   "configuration": {
     "arguments": [
       {
-        "name" : "path"
+        "name" : "path",
         "value" : "/tmp"
       },
       {
-        "name" : "path1"
+        "name" : "path1",
         "value" : "/root"
       }  
     ],
