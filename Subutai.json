@@ -1,18 +1,12 @@
 {
   "name": "SubutaiAnsible",
   "description": "Environment configuration test blueprint",
-  "containerType": {
-    "description": "you can set TINY,SMALL,MEDIUM,LARGE,HUGE",
-    "type": "enum",
-    "default": "SMALL",
-    "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-  },
   "nodes": [
     {
-      "name": "backup-server",
+      "name": "backup-server1",
       "template": "ubuntu16",
       "peer_group": "HTTP-GROUP",
-      "size": "${containerType}",
+      "size": "TINY"
     }
   ],
   "peerGroups": [
@@ -25,13 +19,13 @@
   ],
   "sshKey": "root",
   "configuration": {
-    "playbook": "https://github.com/platium/app1/archive/master.zip",
+    "playbook": "https://github.com/platium/app2/archive/master.zip",
     "script": "main.yml",
     "groups": [
       {
-        "name": "db",
+        "name": "meme",
         "nodes_name": [
-          "backup-server"
+          "backup-server1"
         ]
       }
     ]
