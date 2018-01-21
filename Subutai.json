@@ -19,7 +19,16 @@
   ],
   "sshKey": "root",
   "configuration": {
-    "environment": "test",
+    "arguments": [
+      {
+        "name" : "path"
+        "value" : "/tmp"
+      },
+      {
+        "name" : "path1"
+        "value" : "/root"
+      }  
+    ],
     "playbook": "https://github.com/platium/app2/archive/master.zip",
     "script": "main.yml",
     "groups": [
