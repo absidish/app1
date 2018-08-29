@@ -57,6 +57,18 @@
       "default": "wp",
       "validation": "[a-zA-Z0-9]+"
     },
+    "db": {
+      "description": "Enter the db name",
+      "type": "string",
+      "default": "wp",
+      "validation": "[a-zA-Z0-9]+"
+    },
+       "web": {
+      "description": "Enter the web name",
+      "type": "string",
+      "default": "wp",
+      "validation": "[a-zA-Z0-9]+"
+    },
     "peerCount": {
       "description": "peer count",
       "type": "int",
