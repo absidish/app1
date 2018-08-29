@@ -9,13 +9,6 @@
       "template": "debian-stretch",
       "peer-criteria": "gr1",
       "size": "${dbtype}"
-    },
-    {
-      "hostname": "${web}",
-      "template": "debian-stretch",
-      "peer-criteria": "gr1",
-      "size": "${webtype}",
-      "peer-layout": "d1"
     }
   ],
   "peer-layouts": [
@@ -31,21 +24,15 @@
     }
   ],
   "ansible-configuration": {
-    "source-url": "https://github.com/absidish/app1-1/archive/master.zip",
-    "ansible-playbook": "site.yml",
+    "source-url": "https://github.com/absidish/app1/archive/master.zip",
+    "ansible-playbook": "main.yml",
     "extra-vars": [
     ],
     "groups": [
       {
-        "name": "monitoring_servers",
+        "name": "monitoring",
         "hostnames": [
           "${db}"
-        ]
-      },
-      {
-        "name": "web_servers",
-        "hostnames": [
-          "${web}"
         ]
       }
     ]
@@ -59,12 +46,6 @@
     },
     "db": {
       "description": "Enter the db name",
-      "type": "string",
-      "default": "wp",
-      "validation": "[a-zA-Z0-9]+"
-    },
-       "web": {
-      "description": "Enter the web name",
       "type": "string",
       "default": "wp",
       "validation": "[a-zA-Z0-9]+"
