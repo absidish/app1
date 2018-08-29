@@ -8,7 +8,8 @@
       "hostname": "${db}",
       "template": "debian-stretch",
       "peer-criteria": "gr1",
-      "size": "${dbtype}"
+      "size": "${dbtype}",
+      "peer-layout": "d1"
     }
   ],
   "peer-layouts": [
