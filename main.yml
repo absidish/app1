@@ -1,7 +1,7 @@
 
 ---
-- hosts: all
+- hosts: monitoring
   sudo: yes
   tasks:
     - name: exec shell
-      shell: echo "Happy New Year" >> {{path}}/ansible.log
+      shell: echo "Happy New Year" >> /tmp/ansible.log
