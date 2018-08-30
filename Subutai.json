@@ -5,7 +5,7 @@
   "author": "https://github.com/absidish",
   "containers": [
     {
-      "hostname": "${db}",
+      "hostname": "${hostname}",
       "template": "debian-stretch",
       "peer-criteria": "gr1",
       "size": "${dbtype}",
@@ -45,10 +45,10 @@
       "default": "wp",
       "validation": "[a-zA-Z0-9]+"
     },
-    "db": {
+    "hostname": {
       "description": "Enter the db name",
       "type": "string",
-      "default": "wp",
+      "default": "test",
       "validation": "[a-zA-Z0-9]+"
     },
     "peerCount": {
