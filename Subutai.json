@@ -33,7 +33,7 @@
       {
         "name": "monitoring",
         "hostnames": [
-          "${db}"
+          "${hostname}"
         ]
       }
     ]
@@ -46,7 +46,7 @@
       "validation": "[a-zA-Z0-9]+"
     },
     "hostname": {
-      "description": "Enter the db name",
+      "description": "Enter the hostname",
       "type": "string",
       "default": "test",
       "validation": "[a-zA-Z0-9]+"
