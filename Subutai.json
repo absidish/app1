@@ -28,6 +28,10 @@
     "source-url": "https://github.com/absidish/app1/archive/master.zip",
     "ansible-playbook": "main.yml",
     "extra-vars": [
+            {
+                "key": "testmessage", 
+                "value": "${testmessage}"
+            }
     ],
     "groups": [
       {
@@ -51,6 +55,12 @@
       "default": "test",
       "validation": "[a-zA-Z0-9]+"
     },
+     "testmessage": {
+      "description": "Enter the hostname",
+      "type": "string",
+      "default": "test",
+      "validation": "[a-zA-Z0-9]+"
+    },    
     "peerCount": {
       "description": "peer count",
       "type": "int",
