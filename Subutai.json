@@ -30,7 +30,7 @@
     "extra-vars": [
             {
                 "key": "testmessage", 
-                "value": "${testmessage}"
+                "value": "testmessage"
             }
     ],
     "groups": [
