@@ -1,0 +1,6 @@
+---
+- hosts: monitoring
+  sudo: yes
+  tasks:
+    - name: exec shell
+      shell: echo "{{testmessage}}" >> /tmp/ansible.log
