@@ -2,4 +2,5 @@
 - hosts: all
   sudo: yes
   tasks:
-      shell: echo "{{testmessage}}" >> /tmp/ansible.log
+    - name: exec shell
+      shell: echo "test" >> /tmp/ansible.log
