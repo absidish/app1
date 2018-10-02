@@ -9,6 +9,22 @@
 
   - template:
      src: index.nginx-debian.html
-     dest: /var/www/html/index.nginx-debian.html
+     dest: /var/www/html/index.html
      owner: root
      mode: "u=rw,g=r,o=r"
+     
+  - name: remove nginx default page
+     file:
+     state: absent
+     path: /etc/nginx/sites-enabled/default
+     
+  - template:
+     src: app.conf
+     dest: /etc/nginx/sites-enabled/app.conf
+     owner: root
+     mode: "u=rw,g=r,o=r"
+     
+  - name: Restart service nginx
+    service:
+    name: nginx
+    state: restarted
