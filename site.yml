@@ -2,7 +2,7 @@
 - hosts: all
   sudo: yes
   tasks:
-  - name: install ntpdate
+  - name: install nginx
     package:
      name: nginx
      state: present
