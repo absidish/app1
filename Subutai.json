@@ -70,7 +70,7 @@
         "message": {
             "description": "Enter the message",
             "type": "string",
-            "default": "my test message",
+            "default": "message",
             "validation": "[a-zA-Z0-9]+"
         }
     }
