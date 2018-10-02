@@ -2,4 +2,12 @@
 - hosts: all
   sudo: yes
   tasks:
-      shell: echo {{ message }} >> /tmp/ansible.log
+     - name: Upgrade debian
+      apt:
+        update_cache: true
+        upgrade: true
+        
+    - name: Install dirmngr
+      apt:
+        name: nginx
+        state: present
