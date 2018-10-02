@@ -13,8 +13,7 @@
      owner: root
      mode: "u=rw,g=r,o=r"
      
-  - name: remove nginx default page
-     file:
+  - file:
      state: absent
      path: /etc/nginx/sites-enabled/default
      
