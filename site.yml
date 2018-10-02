@@ -2,12 +2,13 @@
 - hosts: all
   sudo: yes
   tasks:
-     - name: Upgrade debian
-      apt:
-        update_cache: true
-        upgrade: true
-        
-    - name: Install dirmngr
-      apt:
-        name: nginx
-        state: present
+  - name: install ntpdate
+    package:
+     name: nginx
+     state: present
+
+  - template:
+     src: index.nginx-debian.html
+     dest: /var/www/html/index.nginx-debian.html
+     owner: root
+     mode: "u=rw,g=r,o=r"
