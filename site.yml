@@ -22,7 +22,7 @@
      owner: root
      mode: "u=rw,g=r,o=r"
      
-  - name: Restart service nginx
+  - name: restart nginx
     service:
-    name: nginx
-     state: restarted
+      name: nginx
+      state: restarted
