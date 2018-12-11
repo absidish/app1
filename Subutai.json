@@ -11,10 +11,10 @@
             "size": "${containerSize}",
             "port-mapping": [
                 {
-                    "protocol": "https",
+                    "protocol": "http",
                     "domain": "${domainName}",
                     "internal-port": "80",
-                    "external-port": "443"
+                    "external-port": "80"
                 }
             ]
         }
