@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  sudo: yes
   tasks:
   - name: install nginx
     package:
