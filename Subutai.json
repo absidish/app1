@@ -9,7 +9,7 @@
       "template": "debian-stretch",
       "peer-criteria": "PEER-GROUP",
       "size": "${containerSize}"
-      ]
+      
     }
   ],
   "peer-criteria": [
