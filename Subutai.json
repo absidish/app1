@@ -39,7 +39,7 @@
     "environmentName": {
       "description": "Enter the environment name",
       "type": "string",
-      "default": "wp",
+      "default": "MyTest",
       "validation": "[a-zA-Z0-9]+"
     },
      "testmessage": {
