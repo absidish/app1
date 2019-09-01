@@ -1,64 +1,47 @@
 {
-  "name": "${environmentName}",
-  "description": "Test environment",
-  "version": "1.0.0",
-  "author": "https://github.com/absidish",
-  "containers": [
-    {
-      "hostname": "${containerName}",
-      "template": "debian-stretch",
-      "peer-criteria": "PEER-GROUP",
-      "size": "${containerSize}"
-      
-    }
-  ],
-  "peer-criteria": [
-    {
-      "name": "PEER-GROUP"
-    }
-  ],
-  "ansible-configuration": {
-    "source-url": "https://github.com/absidish/app1/archive/master.zip",
-    "ansible-playbook": "main.yml",
-    "extra-vars": [
-      {
-        "key": "testmessage",
-        "value": "${testmessage}"
-      }
+    "name": "${environmentName}",
+    "description": "Mate Desktop",
+    "version": "1.0.0",
+    "author": "https://github.com/lbthomsen",
+    "ssh-key": "lth",
+    "containers": [
+        {
+            "hostname": "mate",
+            "template": "debian-stretch",
+            "peer-criteria": "MATE-GROUP",
+            "size": "${containerSize}"
+        }
     ],
-    "groups": [
-      {
-        "name": "testcontainers",
-        "hostnames": [
-          "${containerName}"
+    "peer-criteria": [
+        {
+            "name": "MATE-GROUP",
+            "max-price": "25"
+        }
+    ],
+    "ansible-configuration": {
+        "source-url": "https://github.com/subutai-blueprints/mate2go/archive/master.zip",
+        "ansible-playbook": "all.json",
+        "groups": [
+            {
+                "name": "mate",
+                "hostnames": [
+                    "mate"
+                ]
+            }
         ]
-      }
-    ]
-  },
-  "user-variables": {
-    "environmentName": {
-      "description": "Enter the environment name",
-      "type": "string",
-      "default": "MyTest",
-      "validation": "[a-zA-Z0-9]+"
     },
-     "testmessage": {
-      "description": "Enter the test message",
-      "type": "string",
-      "default": "testmessage",
-      "validation": "[a-zA-Z0-9]+"
-    },    
-    "containerName": {
-      "description": "Enter the container's hostname",
-      "type": "string",
-      "default": "testcontainer",
-      "validation": "[a-zA-Z0-9]+"
-    },
-    "containerSize": {
-      "description": "Container Size",
-      "type": "enum",
-      "default": "TINY",
-      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+    "user-variables": {
+        "environmentName": {
+            "description": "Enter the environment name",
+            "type": "string",
+            "default": "wp",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "containerSize": {
+            "description": "Container Size",
+            "type": "enum",
+            "default": "MEDIUM",
+            "validation": "MEDIUM,LARGE,HUGE"
+        }
     }
-  }
 }
