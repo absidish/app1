@@ -37,6 +37,12 @@
             "default": "wp",
             "validation": "[a-zA-Z0-9]+"
         },
+         "testmessage": {
+            "description": "Enter the test message",
+            "type": "string",
+            "default": "wp",
+            "validation": "[a-zA-Z0-9]+"
+        },
         "containerSize": {
             "description": "Container Size",
             "type": "enum",
