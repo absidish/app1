@@ -1,28 +1,22 @@
 ---
 - hosts: all
   tasks:
-  - name: install nginx
-    package:
-     name: nginx
-     state: present
+  - name: Install add-apt-repostory
+    become: yes
+    apt: name=software-properties-common state=latest
 
-  - template:
-     src: index.nginx-debian.html
-     dest: /var/www/html/index.html
-     owner: root
-     mode: "u=rw,g=r,o=r"
-     
-  - file:
-     state: absent
-     path: /etc/nginx/sites-enabled/default
-     
-  - template:
-     src: app.conf
-     dest: /etc/nginx/sites-enabled/app.conf
-     owner: root
-     mode: "u=rw,g=r,o=r"
-     
-  - name: restart nginx
-    service:
-      name: nginx
-      state: restarted
+  - name: Add Oracle Java Repository
+    become: yes
+    apt_repository: repo='ppa:webupd8team/java'
+
+  - name: Accept Java 8 License
+    become: yes
+    debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+  - name: Install Oracle Java 8
+    become: yes
+    apt: name={{item}} state=latest
+    with_items:
+      - oracle-java8-installer
+      - ca-certificates
+      - oracle-java8-set-default
