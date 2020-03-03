@@ -1,22 +1,28 @@
 ---
-- hosts: all
+- hosts: brooklyn
+  remote_user: root
+  vars:
+    download_url: https://ipfs.subutai.io/ipfs/QmUFYHDnWv2t2wT1JgWnjrpk5PRtmEum82i24beLpZ68XF/jdk-8u201-linux-x64.ta$
+    download_folder: /opt
+    java_archive: "{{download_folder}}/jdk-8u201-linux-x64.tar.gz"
+
   tasks:
-  - name: Install add-apt-repostory
-    become: yes
-    apt: name=software-properties-common state=latest
+  - name: Download Java
+    command: "wget -q -O {{java_archive}} --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept$
 
-  - name: Add Oracle Java Repository
-    become: yes
-    apt_repository: repo='ppa:webupd8team/java'
+  - name: Unarchive java
+    unarchive:
+      src={{ java_archive }}
+      dest={{download_folder}}
+      remote_src=yes
 
-  - name: Accept Java 8 License
-    become: yes
-    debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+   - name: Clean up
+     file: state=absent path={{java_archive}}
 
-  - name: Install Oracle Java 8
-    become: yes
-    apt: name={{item}} state=latest
-    with_items:
-      - oracle-java8-installer
-      - ca-certificates
-      - oracle-java8-set-default
+
+   - name: Set JAVA_HOME
+     lineinfile:
+      dest: /etc/environment
+      state: present
+      regexp: '^JAVA_HOME'
+      line: 'JAVA_HOME=/opt/jdk1.8.0_201'
