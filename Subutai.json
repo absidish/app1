@@ -5,10 +5,18 @@
     "author": "https://github.com/absidish",
     "containers": [
         {
-            "hostname": "mate",
+            "hostname": "brooklyn",
             "template": "debian-stretch",
             "peer-criteria": "MATE-GROUP",
-            "size": "${containerSize}"
+            "size": "${containerSize}",
+            "port-mapping": [
+                {
+                    "protocol": "${protocol}",
+                    "domain": "${domainName}",
+                    "internal-port": "80",
+                    "external-port": "443"
+                }
+            ]
         }
     ],
     "peer-criteria": [
@@ -22,9 +30,9 @@
         "ansible-playbook": "site.yml",
         "groups": [
             {
-                "name": "mate",
+                "name": "brooklyn",
                 "hostnames": [
-                    "mate"
+                    "brooklyn"
                 ]
             }
         ]
@@ -33,20 +41,20 @@
         "environmentName": {
             "description": "Enter the environment name",
             "type": "string",
-            "default": "wp",
+            "default": "ApacheBrooklyn",
             "validation": "[a-zA-Z0-9]+"
         },
-         "testmessage": {
-            "description": "Enter the test message",
-            "type": "string",
-            "default": "wp",
+        "domainName": {
+            "description": "Enter the application domain name",
+            "type": "domain",
+            "default": "change.the.domain",
             "validation": "[a-zA-Z0-9]+"
         },
         "containerSize": {
             "description": "Container Size",
             "type": "enum",
-            "default": "MEDIUM",
-            "validation": "MEDIUM,LARGE,HUGE"
+            "default": "SMALL",
+            "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
         }
     }
 }
