@@ -7,7 +7,7 @@
     {
       "hostname": "brooklyn",
       "template": "debian-stretch",
-      "peer-criteria": "d2",
+      "peer-criteria": "usualgroup",
       "size": "${containerSize}",
       "port-mapping": [
         {
@@ -21,17 +21,17 @@
     {
       "hostname": "target",
       "template": "debian-stretch",
-      "peer-criteria": "d1",
+      "peer-criteria": "cluster",
       "size": "${targetContainerSize}",
       "peer-layout": "layout1"
     }
   ],
   "peer-criteria": [
     {
-      "name": "d1"
+      "name": "usualgroup"
     },
        {
-      "name": "d2"
+      "name": "cluster"
     }
   ],
   "peer-layouts": [
