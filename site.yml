@@ -58,7 +58,6 @@
     - name: Download apache-brooklyn-1.0.0.deb
       command: "wget --no-check-certificate https://ipfs.subutai.io/ipfs/QmQNxEgKEPssNiA2VGn7ScZKrKAxgr6ptcF4oefCskcrVm/apache-brooklyn-1.0.0.deb"
 
-
     - name: Install apache-brooklyn-1.0.0.deb
       apt:
         deb: /root/apache-brooklyn-1.0.0.deb
@@ -67,3 +66,8 @@
       service:
         name: brooklyn
         state: restarted
+
+    - name: Remove apache-brooklyn-1.0.0.deb
+      file:
+       path: /root/apache-brooklyn-1.0.0.deb
+       state: absent
