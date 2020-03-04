@@ -1,4 +1,4 @@
---- 
+---
 
 - hosts: all
   remote_user: root
@@ -27,16 +27,16 @@
       with_items:
         - openjdk-8-jre
         - nginx
-        
+
     - name: Delete nginx default file
       file:
         path: /etc/nginx/sites-available/default
-        state: absent    
+        state: absent
 
-    - name: Delete nginx default file link 
+    - name: Delete nginx default file link
       file:
         path: /etc/nginx/sites-enabled/default
-        state: absent        
+        state: absent
 
     - name: copy nginx conf
       copy:
@@ -55,11 +55,15 @@
         name: nginx
         state: restarted
 
-    - name: Install a .deb package from the internet.
+    - name: Download apache-brooklyn-1.0.0.deb
+      command: "wget --no-check-certificate https://ipfs.subutai.io/ipfs/QmQNxEgKEPssNiA2VGn7ScZKrKAxgr6ptcF4oefCskcrVm/apache-brooklyn-1.0.0.deb"
+
+
+    - name: Install apache-brooklyn-1.0.0.deb
       apt:
-        deb: https://ipfs.subutai.io/ipfs/QmQNxEgKEPssNiA2VGn7ScZKrKAxgr6ptcF4oefCskcrVm/apache-brooklyn-1.0.0.deb
+        deb: /root/apache-brooklyn-1.0.0.deb
 
     - name: Restart brooklyn
       service:
         name: brooklyn
-        state: restarted        
+        state: restarted
