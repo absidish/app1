@@ -1,28 +1,40 @@
 ---
-- hosts: brooklyn
+- hosts: all
   remote_user: root
   vars:
     download_url: https://ipfs.subutai.io/ipfs/QmUFYHDnWv2t2wT1JgWnjrpk5PRtmEum82i24beLpZ68XF/jdk-8u201-linux-x64.ta$
-    download_folder: /opt
+    download_folder: /root
     java_archive: "{{download_folder}}/jdk-8u201-linux-x64.tar.gz"
+    javahome: "/opt/jdk1.8.0_201"
 
   tasks:
   - name: Download Java
-    command: "wget -q -O {{java_archive}} --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept$
+    command: "wget --no-check-certificate {{download_url}}"
 
   - name: Unarchive java
     unarchive:
       src={{ java_archive }}
-      dest={{download_folder}}
+      dest=/opt/
       remote_src=yes
 
-   - name: Clean up
-     file: state=absent path={{java_archive}}
+  - name: Clean up
+    file: state=absent path={{java_archive}}
 
-
-   - name: Set JAVA_HOME
-     lineinfile:
-      dest: /etc/environment
-      state: present
+  - name: Set JAVA_HOME
+    lineinfile:
+      path: /etc/profile
       regexp: '^JAVA_HOME'
-      line: 'JAVA_HOME=/opt/jdk1.8.0_201'
+      line: 'export JAVA_HOME=/opt/jdk1.8.0_201'
+
+
+  - name: Set JAVA_HOME to PATH
+    lineinfile:
+      path: /etc/profile
+      state: present
+      regexp: '^PATH'
+      line: 'export PATH=$PATH:$JAVA_HOME/bin'
+
+  - name: apply
+    shell: source /etc/profile
+    args:
+      executable: /bin/bash
