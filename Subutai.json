@@ -7,7 +7,7 @@
     {
       "hostname": "brooklyn",
       "template": "debian-stretch",
-      "peer-criteria": "MATE-GROUP",
+      "peer-criteria": "d1",
       "size": "${containerSize}",
       "port-mapping": [
         {
@@ -28,12 +28,7 @@
   ],
   "peer-criteria": [
     {
-      "name": "MATE-GROUP",
-      "max-price": "25"
-    },
-    {
-      "name": "d1",
-      "max-price": "25"
+      "name": "d1"
     }
   ],
   "peer-layouts": [
