@@ -7,7 +7,7 @@
     {
       "hostname": "brooklyn",
       "template": "debian-stretch",
-      "peer-criteria": "d1",
+      "peer-criteria": "d2",
       "size": "${containerSize}",
       "port-mapping": [
         {
@@ -29,6 +29,9 @@
   "peer-criteria": [
     {
       "name": "d1"
+    },
+       {
+      "name": "d2"
     }
   ],
   "peer-layouts": [
