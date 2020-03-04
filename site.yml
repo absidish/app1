@@ -1,40 +1,65 @@
----
+--- 
+
 - hosts: all
   remote_user: root
-  vars:
-    download_url: https://ipfs.subutai.io/ipfs/QmUFYHDnWv2t2wT1JgWnjrpk5PRtmEum82i24beLpZ68XF/jdk-8u201-linux-x64.ta$
-    download_folder: /root
-    java_archive: "{{download_folder}}/jdk-8u201-linux-x64.tar.gz"
-    javahome: "/opt/jdk1.8.0_201"
-
   tasks:
-  - name: Download Java
-    command: "wget --no-check-certificate {{download_url}}"
 
-  - name: Unarchive java
-    unarchive:
-      src={{ java_archive }}
-      dest=/opt/
-      remote_src=yes
+    # -------------------------------------------------------------------------
+    # Freshen up the host
+    # -------------------------------------------------------------------------
 
-  - name: Clean up
-    file: state=absent path={{java_archive}}
+    - name: Disable dpkg fsync
+      raw: test -e /etc/dpkg/dpkg.cfg.d/unsafe-io || echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/unsafe-io
 
-  - name: Set JAVA_HOME
-    lineinfile:
-      path: /etc/profile
-      regexp: '^JAVA_HOME'
-      line: 'export JAVA_HOME=/opt/jdk1.8.0_201'
+    - name: Upgrade debian
+      apt:
+        update_cache: true
+        upgrade: true
 
+    # -------------------------------------------------------------------------
+    # Install shit that should be there and fix locales
+    # -------------------------------------------------------------------------
 
-  - name: Set JAVA_HOME to PATH
-    lineinfile:
-      path: /etc/profile
-      state: present
-      regexp: '^PATH'
-      line: 'export PATH=$PATH:$JAVA_HOME/bin'
+    - name: Install setup tools
+      apt:
+        name: "{{ item }}"
+        allow_unauthenticated: yes
+      with_items:
+        - openjdk-8-jre
+        - nginx
+        
+    - name: Delete nginx default file
+      file:
+        path: /etc/nginx/sites-available/default
+        state: absent    
 
-  - name: apply
-    shell: source /etc/profile
-    args:
-      executable: /bin/bash
+    - name: Delete nginx default file link 
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent        
+
+    - name: copy nginx conf
+      copy:
+        src: brooklyn.conf
+        dest: /etc/nginx/sites-enabled/brooklyn.conf
+        follow: yes
+
+    - name: copy nginx conf
+      copy:
+        src: brooklyn.conf
+        dest: /etc/nginx/sites-available/brooklyn.conf
+        follow: yes
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Install a .deb package from the internet.
+      apt:
+        deb: https://ipfs.subutai.io/ipfs/QmQNxEgKEPssNiA2VGn7ScZKrKAxgr6ptcF4oefCskcrVm/apache-brooklyn-1.0.0.deb
+
+    - name: Restart brooklyn
+      service:
+        name: brooklyn
+        state: restarted        
