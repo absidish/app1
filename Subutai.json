@@ -28,7 +28,7 @@
         {
           "uniqProxy": false,
           "protocol": "https",
-          "domain": "cloud.stage-hub.net",
+          "domain": "sydyk1.envs.dev.subut.ai",
           "internal-port": 80,
           "external-port": 443,
           "ssl_cert": null,
