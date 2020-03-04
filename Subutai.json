@@ -1,113 +1,58 @@
 {
-  "name": "sdfsdfsdfasdasd",
-  "containers": [
-    {
-      "hostname": "target-b7a9",
-      "peer-criteria": "0bb879f2-4b33-43b9-96bc-74550ebb4a9e",
-      "template": "debian-stretch",
-      "template_id": null,
-      "size": "TINY",
-      "ram": null,
-      "cpu": null,
-      "disk": null,
-      "count": null,
-      "port-mapping": null,
-      "peer-layout": "layout1"
-    },
-    {
-      "hostname": "brooklyn",
-      "peer-criteria": "usualgroup",
-      "template": "debian-stretch",
-      "template_id": null,
-      "size": "TINY",
-      "ram": null,
-      "cpu": null,
-      "disk": null,
-      "count": null,
-      "port-mapping": [
-        {
-          "uniqProxy": false,
-          "protocol": "https",
-          "domain": "sydyk1.envs.dev.subut.ai",
-          "internal-port": 80,
-          "external-port": 443,
-          "ssl_cert": null,
-          "lets_encrypt": true,
-          "http_redirect": false,
-          "ssl_backend": false,
-          "uniq-proxy": false,
-          "error": null
-        }
-      ],
-      "peer-layout": null
-    },
-    {
-      "hostname": "ansible-server-187",
-      "peer-criteria": "usualgroup",
-      "template": "generic-ansible",
-      "template_id": null,
-      "size": "TINY",
-      "ram": null,
-      "cpu": null,
-      "disk": null,
-      "count": 1,
-      "port-mapping": null,
-      "peer-layout": null
-    }
-  ],
-  "peer-criteria": [
-    {
-      "name": "usualgroup",
-      "uptime": null,
-      "maxPeersInGroup": null,
-      "max-price": null,
-      "avg-cpu-load": null,
-      "min-free-ram": null,
-      "min-free-disk-space": null,
-      "proximityPreferences": null
-    },
-    {
-      "name": "0bb879f2-4b33-43b9-96bc-74550ebb4a9e",
-      "uptime": null,
-      "maxPeersInGroup": null,
-      "max-price": null,
-      "avg-cpu-load": null,
-      "min-free-ram": null,
-      "min-free-disk-space": null,
-      "proximityPreferences": null
-    }
-  ],
-  "ansible-configuration": {
-    "source-url": "https://github.com/absidish/app1/archive/master.zip",
-    "ansible-playbook": "site.yml",
-    "extra-vars": null,
-    "groups": [
-      {
-        "name": "brooklyn-server",
-        "hostnames": [
-          
-        ],
-        "python-interpreter": null
-      },
-      {
-        "name": "targets",
-        "hostnames": [
-          "target-b7a9"
-        ],
-        "python-interpreter": null
-      }
-    ],
-    "keep-ansible-container": false
-  },
-  "ssh-key": null,
-  "description": "Apache Brooklyn",
-  "version": "1.0.0",
-  "author": "https://github.com/absidish",
-  "peer-layouts": [
-    {
-      "name": "layout1",
-      "peer-count": 1,
-      "container-per-peer": 1
-    }
-  ]
+	"name": "${environmentName}",
+	"description": "Apache Brooklyn",
+	"version": "1.0.0",
+	"author": "https://github.com/absidish",
+	"containers": [{
+		"hostname": "mate",
+		"template": "debian-stretch",
+		"peer-criteria": "MATE-GROUP",
+		"size": "${containerSize}",
+		"port-mapping": [{
+			"protocol": "https",
+			"domain": "${domainName}",
+			"internal-port": "80",
+			"external-port": "443"
+		}]
+	}],
+	"peer-criteria": [{
+		"name": "MATE-GROUP",
+		"max-price": "25"
+	}],
+	"ansible-configuration": {
+		"source-url": "https://github.com/absidish/app1/archive/master.zip",
+		"ansible-playbook": "site.yml",
+		"groups": [{
+			"name": "mate",
+			"hostnames": [
+				"mate"
+			]
+		}]
+	},
+	"user-variables": {
+		"environmentName": {
+			"description": "Enter the environment name",
+			"type": "string",
+			"default": "wp",
+			"validation": "[a-zA-Z0-9]+"
+		},
+		"testmessage": {
+			"description": "Enter the test message",
+			"type": "string",
+			"default": "wp",
+			"validation": "[a-zA-Z0-9]+"
+		},
+		"containerSize": {
+			"description": "Container Size",
+			"type": "enum",
+			"default": "MEDIUM",
+			"validation": "MEDIUM,LARGE,HUGE"
+		},
+		"domainName": {
+			"description": "Enter the application domain name",
+			"type": "domain",
+			"default": "change.the.domain",
+			"validation": "[a-zA-Z0-9]+"
+		}
+	}
 }
