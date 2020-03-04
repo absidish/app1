@@ -1,60 +1,102 @@
 {
-    "name": "${environmentName}",
-    "description": "Apache Brooklyn",
-    "version": "1.0.0",
-    "author": "https://github.com/absidish",
-    "containers": [
+  "name": "${environmentName}",
+  "description": "Apache Brooklyn",
+  "version": "1.0.0",
+  "author": "https://github.com/absidish",
+  "containers": [
+    {
+      "hostname": "brooklyn",
+      "template": "debian-stretch",
+      "peer-criteria": "MATE-GROUP",
+      "size": "${containerSize}",
+      "port-mapping": [
         {
-            "hostname": "brooklyn",
-            "template": "debian-stretch",
-            "peer-criteria": "MATE-GROUP",
-            "size": "${containerSize}",
-            "port-mapping": [
-                {
-                    "protocol": "https",
-                    "domain": "${domainName}",
-                    "internal-port": "80",
-                    "external-port": "443"
-                }
-            ]
+          "protocol": "https",
+          "domain": "${domainName}",
+          "internal-port": "80",
+          "external-port": "443"
         }
-    ],
-    "peer-criteria": [
-        {
-            "name": "MATE-GROUP",
-            "max-price": "25"
-        }
-    ],
-    "ansible-configuration": {
-        "source-url": "https://github.com/absidish/app1/archive/master.zip",
-        "ansible-playbook": "site.yml",
-        "groups": [
-            {
-                "name": "brooklyn",
-                "hostnames": [
-                    "brooklyn"
-                ]
-            }
-        ]
+      ]
     },
-    "user-variables": {
-        "environmentName": {
-            "description": "Enter the environment name",
-            "type": "string",
-            "default": "ApacheBrooklyn",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "domainName": {
-            "description": "Enter the application domain name",
-            "type": "domain",
-            "default": "change.the.domain",
-            "validation": "[a-zA-Z0-9]+"
-        },
-        "containerSize": {
-            "description": "Container Size",
-            "type": "enum",
-            "default": "SMALL",
-            "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-        }
+    {
+      "hostname": "target",
+      "template": "debian-stretch",
+      "peer-criteria": "d1",
+      "size": "${targetContainerSize}",
+      "peer-layout": "layout1"
     }
+  ],
+  "peer-criteria": [
+    {
+      "name": "MATE-GROUP",
+      "max-price": "25"
+    },
+    {
+      "name": "d1",
+      "max-price": "25"
+    }
+  ],
+  "peer-layouts": [
+    {
+      "name": "layout1",
+      "peer-count": "${peerCount}",
+      "container-per-peer": "${containerPerPeerCount}"
+    }
+  ],
+  "ansible-configuration": {
+    "source-url": "https://github.com/absidish/app1/archive/master.zip",
+    "ansible-playbook": "site.yml",
+    "groups": [
+      {
+        "name": "brooklyn-server",
+        "hostnames": [
+          "brooklyn"
+        ]
+      },
+      {
+        "name": "targets",
+        "hostnames": [
+          "target"
+        ]
+      }
+    ]
+  },
+  "user-variables": {
+    "environmentName": {
+      "description": "Enter the environment name",
+      "type": "string",
+      "default": "ApacheBrooklyn",
+      "validation": "[a-zA-Z0-9]+"
+    },
+    "peerCount": {
+      "description": "peer count",
+      "type": "int",
+      "default": "1",
+      "validation": "\\d+"
+    },
+    "containerPerPeerCount": {
+      "description": "Container per peer Count",
+      "type": "int",
+      "default": "1",
+      "validation": "\\d+"
+    },
+    "domainName": {
+      "description": "Enter the application domain name",
+      "type": "domain",
+      "default": "change.the.domain",
+      "validation": "[a-zA-Z0-9]+"
+    },
+    "targetContainerSize": {
+      "description": "Container Size",
+      "type": "enum",
+      "default": "SMALL",
+      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+    },
+    "containerSize": {
+      "description": "Container Size",
+      "type": "enum",
+      "default": "SMALL",
+      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+    }
+  }
 }
