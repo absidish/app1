@@ -1,100 +1,113 @@
 {
-  "name": "${environmentName}",
-  "description": "Apache Brooklyn",
-  "version": "1.0.0",
-  "author": "https://github.com/absidish",
+  "name": "sdfsdfsdfasdasd",
   "containers": [
     {
-      "hostname": "brooklyn",
+      "hostname": "target-b7a9",
+      "peer-criteria": "0bb879f2-4b33-43b9-96bc-74550ebb4a9e",
       "template": "debian-stretch",
-      "peer-criteria": "usualgroup",
-      "size": "${containerSize}",
-      "port-mapping": [
-        {
-          "protocol": "https",
-          "domain": "${domainName}",
-          "internal-port": "80",
-          "external-port": "443"
-        }
-      ]
+      "template_id": null,
+      "size": "TINY",
+      "ram": null,
+      "cpu": null,
+      "disk": null,
+      "count": null,
+      "port-mapping": null,
+      "peer-layout": "layout1"
     },
     {
-      "hostname": "target",
+      "hostname": "brooklyn",
+      "peer-criteria": "usualgroup",
       "template": "debian-stretch",
-      "peer-criteria": "cluster",
-      "size": "${targetContainerSize}",
-      "peer-layout": "layout1"
+      "template_id": null,
+      "size": "TINY",
+      "ram": null,
+      "cpu": null,
+      "disk": null,
+      "count": null,
+      "port-mapping": [
+        {
+          "uniqProxy": false,
+          "protocol": "https",
+          "domain": "cloud.stage-hub.net",
+          "internal-port": 80,
+          "external-port": 443,
+          "ssl_cert": null,
+          "lets_encrypt": true,
+          "http_redirect": false,
+          "ssl_backend": false,
+          "uniq-proxy": false,
+          "error": null
+        }
+      ],
+      "peer-layout": null
+    },
+    {
+      "hostname": "ansible-server-187",
+      "peer-criteria": "usualgroup",
+      "template": "generic-ansible",
+      "template_id": null,
+      "size": "TINY",
+      "ram": null,
+      "cpu": null,
+      "disk": null,
+      "count": 1,
+      "port-mapping": null,
+      "peer-layout": null
     }
   ],
   "peer-criteria": [
     {
-      "name": "usualgroup"
+      "name": "usualgroup",
+      "uptime": null,
+      "maxPeersInGroup": null,
+      "max-price": null,
+      "avg-cpu-load": null,
+      "min-free-ram": null,
+      "min-free-disk-space": null,
+      "proximityPreferences": null
     },
-       {
-      "name": "cluster"
-    }
-  ],
-  "peer-layouts": [
     {
-      "name": "layout1",
-      "peer-count": "${peerCount}",
-      "container-per-peer": "${containerPerPeerCount}"
+      "name": "0bb879f2-4b33-43b9-96bc-74550ebb4a9e",
+      "uptime": null,
+      "maxPeersInGroup": null,
+      "max-price": null,
+      "avg-cpu-load": null,
+      "min-free-ram": null,
+      "min-free-disk-space": null,
+      "proximityPreferences": null
     }
   ],
   "ansible-configuration": {
     "source-url": "https://github.com/absidish/app1/archive/master.zip",
     "ansible-playbook": "site.yml",
+    "extra-vars": null,
     "groups": [
       {
         "name": "brooklyn-server",
         "hostnames": [
-          "brooklyn"
-        ]
+          
+        ],
+        "python-interpreter": null
       },
       {
         "name": "targets",
         "hostnames": [
-          "target"
-        ]
+          "target-b7a9"
+        ],
+        "python-interpreter": null
       }
-    ]
+    ],
+    "keep-ansible-container": false
   },
-  "user-variables": {
-    "environmentName": {
-      "description": "Enter the environment name",
-      "type": "string",
-      "default": "ApacheBrooklyn",
-      "validation": "[a-zA-Z0-9]+"
-    },
-    "peerCount": {
-      "description": "peer count",
-      "type": "int",
-      "default": "1",
-      "validation": "\\d+"
-    },
-    "containerPerPeerCount": {
-      "description": "Container per peer Count",
-      "type": "int",
-      "default": "1",
-      "validation": "\\d+"
-    },
-    "domainName": {
-      "description": "Enter the application domain name",
-      "type": "domain",
-      "default": "change.the.domain",
-      "validation": "[a-zA-Z0-9]+"
-    },
-    "targetContainerSize": {
-      "description": "Container Size",
-      "type": "enum",
-      "default": "SMALL",
-      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-    },
-    "containerSize": {
-      "description": "Container Size",
-      "type": "enum",
-      "default": "SMALL",
-      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+  "ssh-key": null,
+  "description": "Apache Brooklyn",
+  "version": "1.0.0",
+  "author": "https://github.com/absidish",
+  "peer-layouts": [
+    {
+      "name": "layout1",
+      "peer-count": 1,
+      "container-per-peer": 1
     }
-  }
+  ]
 }
