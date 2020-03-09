@@ -52,7 +52,7 @@
     ],
     "groups": [
       {
-        "name": "brooklyn_servers",
+        "name": "brooklyn_server",
         "hostnames": [
           "brooklyn"
         ]
