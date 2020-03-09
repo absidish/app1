@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: brooklyn_server
   remote_user: root
   tasks:
 
