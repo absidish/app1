@@ -82,7 +82,7 @@
       "description": "peer count",
       "type": "int",
       "default": "1",
-      "validation": "^(?:aa)*(?:a1|0)$"
+      "validation": "[0-9]+"
     },
   }
 }
