@@ -36,7 +36,7 @@
     {
       "name": "d2",
       "peer-count": "${peerCount}",
-      "container-per-peer": "1"
+      "container-per-peer": "${containerPerPeerCount}"
     }
   ],
   "peer-criteria": [
@@ -77,6 +77,12 @@
       "type": "domain",
       "default": "change.the.domain",
       "validation": "[a-zA-Z0-9]+"
+    },
+    "containerPerPeerCount": {
+      "description": "Containers per peer count",
+      "type": "int",
+      "default": "1",
+      "validation": "[0-9]+"
     },
     "peerCount": {
       "description": "peer count",
