@@ -15,7 +15,8 @@
           "protocol": "https",
           "domain": "${domain}",
           "internal-port": "80",
-          "external-port": "443"
+          "external-port": "443",
+          "http_redirect": "true"
         }
       ]
     },
