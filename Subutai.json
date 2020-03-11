@@ -5,35 +5,14 @@
   "author": "https://github.com/absidish",
   "containers": [
     {
-      "hostname": "brooklyn",
+      "hostname": "apache",
       "template": "debian-stretch",
       "peer-criteria": "gr1",
-      "size": "SMALL",
-      "peer-layout": "d1",
-      "port-mapping": [
-        {
-          "protocol": "https",
-          "domain": "${domain}",
-          "internal-port": "80",
-          "external-port": "443",
-          "http_redirect": "true"
-        }
-      ]
-    },
-    {
-      "hostname": "web",
-      "template": "debian-stretch",
-      "peer-criteria": "gr1",
-      "size": "TINY",
+      "size": "${containerSize}",
       "peer-layout": "d2"
     }
   ],
   "peer-layouts": [
-    {
-      "name": "d1",
-      "peer-count": "1",
-      "container-per-peer": "1"
-    },
     {
       "name": "d2",
       "peer-count": "${peerCount}",
@@ -53,15 +32,9 @@
     ],
     "groups": [
       {
-        "name": "brooklyn_server",
-        "hostnames": [
-          "brooklyn"
-        ]
-      },
-      {
         "name": "servers",
         "hostnames": [
-          "web"
+          "apache"
         ]
       }
     ]
@@ -91,5 +64,11 @@
       "default": "1",
       "validation": "[0-9]+"
     },
+    "containerSize": {
+            "description": "Container Size",
+            "type": "enum",
+            "default": "SMALL",
+            "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+        }
   }
 }
