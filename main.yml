@@ -2,6 +2,7 @@
 
 - hosts: all
   remote_user: root
+  serial: 1
   tasks:
 
     # -------------------------------------------------------------------------
@@ -60,4 +61,18 @@
         src: galera.cnf.j2
         dest: /etc/mysql/conf.d/galera.cnf
         
+    - name: stop mysql service
+      service:
+        name: "mysql"
+        state: "stopped"
+        
+    - name: Start first node
+      shell: galera_new_cluster
+      when: inventory_hostname == groups['servers'][0]
 
+    - name: start and enable mysql one by one
+      service:
+        name: "mysql"
+        state: "started"
+        enabled: true
+      when: inventory_hostname != groups['servers'][0]
