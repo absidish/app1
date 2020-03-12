@@ -2,7 +2,6 @@
 
 - hosts: all
   remote_user: root
-  serial: 1
   tasks:
 
     # -------------------------------------------------------------------------
@@ -30,7 +29,6 @@
         - dirmngr
         - software-properties-common
         - apt-transport-https
-
 
     - name: Add mariadb key
       apt_key:
@@ -67,20 +65,11 @@
         name: mysql
         state: started
         args: --wsrep-new-cluster
-      run_once: true
-
-    - name: Wait for start first node
-      wait_for:
-        host: "127.0.0.1"
-        port: 3306
+      when: inventory_hostname == groups['servers'][0]
 
     - name: start and enable mysql one by one
       service:
         name: "mysql"
         state: "restarted"
         enabled: true
-      
-    - name: Wait for restart to complete
-      wait_for:
-        host: "127.0.0.1"
-        port: 3306        
+      when: inventory_hostname != groups['servers'][0]
