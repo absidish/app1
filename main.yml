@@ -2,6 +2,7 @@
 
 - hosts: all
   remote_user: root
+  serial: 1
   tasks:
 
     # -------------------------------------------------------------------------
@@ -60,4 +61,26 @@
       template:
         src: galera.cnf.j2
         dest: /etc/mysql/conf.d/galera.cnf
+        
+    - name: Start first node
+      service:
+        name: mysql
+        state: started
+        args: --wsrep-new-cluster
+      run_once: true
 
+    - name: Wait for start first node
+      wait_for:
+        host: "127.0.0.1"
+        port: 3306
+
+    - name: start and enable mysql one by one
+      service:
+        name: "mysql"
+        state: "restarted"
+        enabled: true
+      
+    - name: Wait for restart to complete
+      wait_for:
+        host: "127.0.0.1"
+        port: 3306        
