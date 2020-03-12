@@ -2,7 +2,6 @@
 
 - hosts: all
   remote_user: root
-  serial: 1
   tasks:
 
     # -------------------------------------------------------------------------
@@ -76,3 +75,7 @@
         state: "started"
         enabled: true
       when: inventory_hostname != groups['servers'][0]
+      delegate_to: "{{ item }}"
+      with_items: "{{groups['servers']}}"
+      run_once: true
+
