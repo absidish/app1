@@ -60,16 +60,4 @@
         src: galera.cnf.j2
         dest: /etc/mysql/conf.d/galera.cnf
         
-    - name: Start first node
-      service:
-        name: mysql
-        state: started
-        args: --wsrep-new-cluster
-      when: inventory_hostname == groups['servers'][0]
 
-    - name: start and enable mysql one by one
-      service:
-        name: "mysql"
-        state: "restarted"
-        enabled: true
-      when: inventory_hostname != groups['servers'][0]
