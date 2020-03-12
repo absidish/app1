@@ -61,13 +61,3 @@
         src: galera.cnf.j2
         dest: /etc/mysql/conf.d/galera.cnf
 
-    - name: start and enable mysql one by one
-      service:
-        name: "mysql"
-        state: "restarted"
-        enabled: true
-        wait_for: port=3306 delay=10
-      delegate_to: "{{ item }}"
-      with_items: "{{groups['servers']}}"
-      run_once: true
-
