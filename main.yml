@@ -56,11 +56,26 @@
         name: rsync
         state: present   
 
-    - name: create deploy template
+    - name: copy galera.cnf.j2
       template:
         src: galera.cnf.j2
         dest: /etc/mysql/conf.d/galera.cnf
         
+    - name: copy mysql configs
+      template:
+        src: my.cnf
+        dest: /etc/mysql/my.cnf
+
+    - name: copy build.gradle
+      template:
+        src: build.gradle
+        dest: /opt/ofbiz-REL-16.11.06/build.gradle     
+        
+    - name: copy entityengine.xml
+      template:
+        src: entityengine.xml
+        dest: /opt/ofbiz-REL-16.11.06/framework/entity/config/entityengine.xml
+    
     - name: stop mysql service
       service:
         name: "mysql"
