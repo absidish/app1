@@ -43,7 +43,7 @@
     "environmentName": {
       "description": "Enter the environment name",
       "type": "string",
-      "default": "cluster",
+      "default": "OFBizCluster",
       "validation": "[a-zA-Z0-9]+"
     },
     "domain": {
@@ -67,8 +67,8 @@
     "containerSize": {
             "description": "Container Size",
             "type": "enum",
-            "default": "SMALL",
-            "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+            "default": "HUGE",
+            "validation": "LARGE,HUGE"
         }
   }
 }
