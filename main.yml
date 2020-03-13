@@ -84,6 +84,12 @@
     - name: systemctl daemon-reload
       systemd:
         daemon_reload: yes    
+
+    - name: Unarchive DB backups
+      unarchive:
+        src: https://ipfs.subutai.io/ipfs/Qmbk6R3ZrZnWroa2AqDBsdxiF6oWyGmRx3Qb38686V8wzJ/ofbiz-backups.tar.gz
+        dest: /opt/
+        remote_src: yes
     
     - name: stop mysql service
       service:
