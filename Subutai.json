@@ -6,7 +6,7 @@
   "containers": [
     {
       "hostname": "apache",
-      "template": "debian-stretch",
+      "template": "ofbiz-final@sydyk",
       "peer-criteria": "gr1",
       "size": "${containerSize}",
       "peer-layout": "d2"
