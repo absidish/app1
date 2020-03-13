@@ -81,6 +81,11 @@
         src: ofbiz.service
         dest: /etc/systemd/system/ofbiz.service
         
+    - name: copy db.sh 
+      template:
+        src: db.sh 
+        dest: /opt/db.sh        
+        
     - name: systemctl daemon-reload
       systemd:
         daemon_reload: yes    
@@ -100,9 +105,19 @@
       shell: galera_new_cluster
       when: inventory_hostname == groups['servers'][0]
 
+    - name: restore database
+      script:
+        cmd: /opt/db.sh    
+    
     - name: start and enable mysql one by one
       service:
         name: "mysql"
         state: "started"
         enabled: true
       when: inventory_hostname != groups['servers'][0]
+
+    - name: start and enable ofbiz
+      service:
+        name: "ofbiz"
+        state: "started"
+        enabled: true
