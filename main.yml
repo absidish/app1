@@ -106,8 +106,7 @@
       when: inventory_hostname == groups['servers'][0]
 
     - name: restore database
-      script:
-        cmd: /opt/db.sh    
+      command: bash  /opt/db.sh
     
     - name: start and enable mysql one by one
       service:
