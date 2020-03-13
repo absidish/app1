@@ -76,6 +76,15 @@
         src: entityengine.xml
         dest: /opt/ofbiz-REL-16.11.06/framework/entity/config/entityengine.xml
     
+    - name: copy ofbiz service
+      template:
+        src: ofbiz.service
+        dest: /etc/systemd/system/ofbiz.service
+        
+    - name: systemctl daemon-reload
+      systemd:
+        daemon_reload: yes    
+    
     - name: stop mysql service
       service:
         name: "mysql"
