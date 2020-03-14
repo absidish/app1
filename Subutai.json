@@ -1,15 +1,24 @@
 {
   "name": "${environmentName}",
-  "description": "test",
+  "description": "Apache OFBiz",
   "version": "1.0.0",
   "author": "https://github.com/absidish",
   "containers": [
     {
-      "hostname": "apache",
+      "hostname": "ofbiz",
       "template": "ofbiz-final@sydyk",
       "peer-criteria": "gr1",
       "size": "${containerSize}",
-      "peer-layout": "d2"
+      "peer-layout": "d2",
+      "port-mapping": [
+        {
+          "protocol": "https",
+          "domain": "${domain}",
+          "internal-port": "18443",
+          "external-port": "443",
+          "ssl_backend": "true"
+        }
+      ]
     }
   ],
   "peer-layouts": [
@@ -34,7 +43,7 @@
       {
         "name": "servers",
         "hostnames": [
-          "apache"
+          "ofbiz"
         ]
       }
     ]
@@ -47,7 +56,7 @@
       "validation": "[a-zA-Z0-9]+"
     },
     "domain": {
-      "description": "Enter the application domain name",
+      "description": "Enter the domain name",
       "type": "domain",
       "default": "change.the.domain",
       "validation": "[a-zA-Z0-9]+"
