@@ -2,7 +2,6 @@
 
 - hosts: all
   remote_user: root
-  serial: 1
   tasks:
 
     # -------------------------------------------------------------------------
@@ -116,8 +115,11 @@
         name: "mysql"
         state: "started"
         enabled: true
-      when: inventory_hostname != groups['servers'][0]
-
+      when: item != groups["servers"][0]
+      delegate_to: "{{ item }}"
+      with_items: "{{groups['servers']}}"
+      run_once: true
+      
     - name: start and enable ofbiz
       service:
         name: "ofbiz"
