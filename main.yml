@@ -85,6 +85,7 @@
       template:
         src: db.sh 
         dest: /opt/db.sh        
+      when: inventory_hostname == groups['servers'][0]   
         
     - name: systemctl daemon-reload
       systemd:
@@ -95,6 +96,7 @@
         src: https://ipfs.subutai.io/ipfs/Qmbk6R3ZrZnWroa2AqDBsdxiF6oWyGmRx3Qb38686V8wzJ/ofbiz-backups.tar.gz
         dest: /opt/
         remote_src: yes
+      when: inventory_hostname == groups['servers'][0]  
     
     - name: stop mysql service
       service:
@@ -107,6 +109,7 @@
 
     - name: restore database
       command: bash  /opt/db.sh
+      when: inventory_hostname == groups['servers'][0]
     
     - name: start and enable mysql one by one
       service:
