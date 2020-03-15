@@ -9,15 +9,7 @@
       "template": "ofbiz-final@sydyk",
       "peer-criteria": "gr1",
       "size": "${containerSize}",
-      "peer-layout": "d2",
-      "port-mapping": [
-        {
-          "protocol": "https",
-          "domain": "${domain}",
-          "internal-port": "18443",
-          "external-port": "443",
-          "ssl_backend": "true"
-        }
+      "peer-layout": "d2"
       ]
     }
   ],
@@ -53,12 +45,6 @@
       "description": "Enter the environment name",
       "type": "string",
       "default": "OFBizCluster",
-      "validation": "[a-zA-Z0-9]+"
-    },
-    "domain": {
-      "description": "Enter the domain name",
-      "type": "domain",
-      "default": "change.the.domain",
       "validation": "[a-zA-Z0-9]+"
     },
     "containerPerPeerCount": {
