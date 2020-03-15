@@ -28,7 +28,10 @@
     "source-url": "https://github.com/absidish/app1/archive/master.zip",
     "ansible-playbook": "main.yml",
     "extra-vars": [
-      
+       {
+        "key": "password",
+        "value": "${newOFBizdbUserPassword}"
+      }
     ],
     "groups": [
       {
@@ -57,6 +60,12 @@
       "type": "int",
       "default": "1",
       "validation": "[0-9]+"
+    },
+   "newOFBizdbUserPassword": {
+      "description": "New password for ofbiz db user",
+      "type": "string",
+      "default": "changeme",
+      "validation": "[a-zA-Z0-9]+"
     },
     "containerSize": {
             "description": "Container Size",
