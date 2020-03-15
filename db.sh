@@ -4,7 +4,7 @@ mysql -u root  --execute="create database ofbiz character set utf8mb4 collate ut
 mysql -u root  --execute="create database ofbizolap character set utf8mb4 collate utf8mb4_general_ci;";
 mysql -u root  --execute="create database ofbiztenant character set utf8mb4 collate utf8mb4_general_ci;";
 
-mysql -u root  --execute="CREATE USER 'ofbiz'@'%' IDENTIFIED BY 'ofbiz';"
+mysql -u root  --execute="CREATE USER 'ofbiz'@'%' IDENTIFIED BY '{{password}}';"
 mysql -u root  --execute="GRANT ALL PRIVILEGES ON *.* TO 'ofbiz'@'%';"
 
 SET GLOBAL innodb_file_format_max=BARRACUDA;
