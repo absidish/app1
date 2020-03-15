@@ -10,7 +10,6 @@
       "peer-criteria": "gr1",
       "size": "${containerSize}",
       "peer-layout": "d2"
-      ]
     }
   ],
   "peer-layouts": [
