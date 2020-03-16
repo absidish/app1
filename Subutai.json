@@ -9,14 +9,15 @@
       "template": "ofbiz-final@sydyk",
       "peer-criteria": "gr1",
       "size": "${containerSize}",
-      "peer-layout": "d2"
-    }
-  ],
-  "peer-layouts": [
-    {
-      "name": "d2",
-      "peer-count": "${peerCount}",
-      "container-per-peer": "${containerPerPeerCount}"
+      "port-mapping": [
+        {
+          "protocol": "https",
+          "domain": "${domain}",
+          "internal-port": "18443",
+          "external-port": "443",
+          "ssl_backend": "true"
+        }
+      ]
     }
   ],
   "peer-criteria": [
@@ -46,20 +47,14 @@
     "environmentName": {
       "description": "Enter the environment name",
       "type": "string",
-      "default": "OFBizCluster",
+      "default": "OFBiz",
       "validation": "[a-zA-Z0-9]+"
     },
-    "containerPerPeerCount": {
-      "description": "Containers per peer count",
-      "type": "int",
-      "default": "1",
-      "validation": "[0-9]+"
-    },
-    "peerCount": {
-      "description": "peer count",
-      "type": "int",
-      "default": "1",
-      "validation": "[0-9]+"
+    "domain": {	
+      "description": "Enter the domain name",	
+      "type": "domain",	
+      "default": "change.the.domain",	
+      "validation": "[a-zA-Z0-9]+"	
     },
    "newOFBizdbUserPassword": {
       "description": "New password for ofbiz db user",
@@ -72,6 +67,6 @@
             "type": "enum",
             "default": "HUGE",
             "validation": "LARGE,HUGE"
-        }
+   }
   }
 }
