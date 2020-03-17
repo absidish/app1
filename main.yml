@@ -64,7 +64,12 @@
       template:
         src: my.cnf
         dest: /etc/mysql/my.cnf
-
+        
+    - name: copy ofbiz-component.xml
+      template:
+        src: ofbiz-component.xml
+        dest: /opt/ofbiz-REL-16.11.06/applications/accounting/ofbiz-component.xml
+       
     - name: copy build.gradle
       template:
         src: build.gradle
